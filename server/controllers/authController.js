@@ -7,6 +7,7 @@ exports.signup = (req, res, next) => {
     const password = req.body.password;
     const username = req.body.username;
     const name = req.body.name;
+    const city = req.body.city;
 
     User.findOne({email: email})
         .then(user => {
@@ -28,6 +29,7 @@ exports.signup = (req, res, next) => {
                                         name: name,
                                         username: username,
                                         email: email,
+                                        city: city,
                                         password: hashedPassword
                                     });
                                     loadedUser = user;

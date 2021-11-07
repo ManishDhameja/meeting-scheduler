@@ -34,10 +34,8 @@ const meetingSchema = new Schema({
         },
         meetingLink: {
             type: String,
-        }
-    },
-    {
-        attendeeSchema
+        },
+        attendee : [attendeeSchema],
     },
     {
         timestamps: true
