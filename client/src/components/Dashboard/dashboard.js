@@ -1,9 +1,12 @@
 import React from 'react';
+import Sidedrawer from '../Sidedrawer/Sidedrawer'
 
 const Dashboard = () => {
     return (
         <div>
-            <h1>Hello</h1>
+            <Sidedrawer/>
+            <br/>
+            <h1>Hi</h1>
         </div>
     )
 }
