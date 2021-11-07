@@ -1,24 +1,20 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
+import { Route, useLocation, Redirect } from 'react-router-dom';
+import Dashboard from './components/Dashboard/dashboard';
 
-function App() {
+const App = () => {
+  const pathname = useLocation().pathname;
+
+  if(pathname === '/') {
+    let date = new Date();
+    let year = date.getFullYear();
+    let month = date.getMonth() + 1;
+    let day = date.getDate();
+    return <Redirect to={"calendar/" + year + "/" + month + "/" + day} />
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Route path = "/calendar/:year/:month/:date" exact component={Dashboard}/>
   );
 }
 
