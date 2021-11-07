@@ -2,10 +2,14 @@ const createError = require('http-errors');
 const express = require('express');
 const mongoose = require('mongoose');
 
+const authRouter = require('./routes/auth');
+
 const app = express();
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+
+app.use('/auth', authRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
