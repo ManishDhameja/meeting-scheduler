@@ -9,11 +9,12 @@ const Dashboard = () => {
     }
     
     return (
-        <div style={{ height: "100vh", background: "#f4f4f4" }}>
+        <div className="d-flex" style={{ height: "100vh", background: "#f4f4f4" }}>
             <Sidedrawer
                 show={showSidedrawer}
                 closeSidedrawer={() => { }}
             />
+            <Calendar />
         </div>
     )
 }
