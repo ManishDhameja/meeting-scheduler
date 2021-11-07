@@ -25,11 +25,11 @@ const Sidedrawer = ({ show, closeSidedrawer }) => {
     return (
         <>
             <div className={"Sidedrawer " + (closing ? "Sidedrawer_Close" : (show ? "Sidedrawer_Open" : ""))}>
-                <h1>Upcomming Events</h1>
-                <p style={{ marginTop: "-15px" }}>Don't miss sheduled events</p>
+                <h1 style={{ fontSize: "4rem", marginBottom: "-20px" }}>Upcomming Events</h1>
+                <p style={{ fontSize: "2rem" }}>Don't miss sheduled events</p>
                 <div className="eventCard">
-                    <p>{stime}-{etime}</p>
-                    <p className="eventTitle"><b>{title}</b></p>
+                    <p style={{ marginBottom: "-20px" }}>{stime}-{etime}</p>
+                    <p style={{ marginBottom: "-20px" }}><b>{title}</b></p>
                     <p>{description}</p>
                 </div>
             </div>

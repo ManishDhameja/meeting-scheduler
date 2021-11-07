@@ -7,10 +7,10 @@ const Dashboard = () => {
         setShowSidedrawer(prevState => !prevState);
     }
     return (
-        <div>
-            <Sidedrawer 
-            show={showSidedrawer} 
-            closeSidedrawer={() => {}}
+        <div style={{ height: "100vh", background: "#f4f4f4" }}>
+            <Sidedrawer
+                show={showSidedrawer}
+                closeSidedrawer={() => { }}
             />
         </div>
     )
