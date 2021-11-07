@@ -1,3 +1,147 @@
 .Calendar {
-    width: 67%;
+    width: 70%;
+}
+
+.Schedule_Field {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 80px;
+}
+
+.Schedule_Week {
+    width: calc(100%/7);
+}
+
+.Schedule_Cell_Week {
+    height: 70px;
+    display: flex;
+    align-items: center;
+    font-size: 11px;
+    overflow-x: auto;
+    padding: 3px 5px 2px 3px;
+}
+
+.Meet {
+    flex-grow: 1;
+    background-color: rgb(187 215 242);
+    height: 100%;
+    border-radius: 3px;
+    padding: 3px 5px;
+    margin-right: 3px;
+    position: relative;
+    min-width: 150px;
+}
+
+.Meet_Options {
+    display: flex;
+    position: absolute;
+    top: 5px;
+    right: 8px;
+    font-size: 15px;
+    display: none;
+}
+
+.Meet_Title {
+    font-size: 16px;
+    font-weight: bold;
+    margin: 0;
+}
+
+.Meet_Timings {
+    margin-top: 5px;
+    margin-left: 2px;
+    font-family: monospace;
+    font-weight: bold;
+    font-size: 12px;
+    /* overflow: hidden; */
+    display: block;
+    white-space: nowrap;
+}
+
+.Schedule_Table {
+    width: calc(100% - 50px);
+    display: flex;
+}
+
+.Schedule_Table ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+}
+
+.Schedule {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    overflow-y: auto;
+    /* flex-direction: column; */
+}
+
+.Schedule_Cell {
+    height: 70px;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    font-size: 11px;
+    overflow-x: auto;
+    padding: 3px 7px 2px 3px;
+}
+
+.Light_Border {
+    border: 1px solid #ccc;
+}
+
+.Light_BorderX {
+    border-left: 1px solid #ccc;
+    border-right: 1px solid #ccc;
+}
+
+.Light_BorderY {
+    border-top: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+}
+
+.Light_BorderL {
+    border-left: 1px solid #ccc;
+}
+
+.Light_BorderR {
+    border-right: 1px solid #ccc;
+}
+
+.Light_BorderT {
+    border-top: 1px solid #ccc;
+}
+
+.Light_BorderB {
+    border-bottom: 1px solid #ccc;
+}
+
+.Schedule_Timings {
+    width: 50px;
+}
+
+.Schedule_Timing_Cell {
+    height: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    font-size: 11px;
+    overflow-x: auto;
+    padding: 3px 3px 2px 3px;
+}
+
+.Schedule_Timings ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    width: 50px;
+}
+
+.Schedule_Timings h5 {
+    text-align: center;
+    margin: 10px 0;
 }

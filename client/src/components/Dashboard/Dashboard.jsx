@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Sidedrawer from '../Sidedrawer/Sidedrawer';
 import Calendar from '../Calendar/Calendar';
 
@@ -7,6 +7,7 @@ const Dashboard = () => {
     const toggleSidedrawer = () => {
         setShowSidedrawer(prevState => !prevState);
     }
+    
     return (
         <div className="d-flex">
             <Sidedrawer/>
