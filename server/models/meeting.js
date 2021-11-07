@@ -20,7 +20,7 @@ const meetingSchema = new Schema({
             type: Date,
             required: true
         },
-        endtime: {
+        endTime: {
             type: Date,
             required: true
         },
