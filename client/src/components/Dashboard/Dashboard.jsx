@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from 'react';
-import Sidedrawer from '../Sidedrawer/Sidedrawer'
+import React from 'react';
+import Sidedrawer from '../Sidedrawer/Sidedrawer';
+import Calendar from '../Calendar/Calendar';
 
 const Dashboard = () => {
     const [showSidedrawer, setShowSidedrawer] = useState(true);
