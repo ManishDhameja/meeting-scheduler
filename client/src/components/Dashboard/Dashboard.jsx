@@ -1,12 +1,12 @@
 import React from 'react';
-import Sidedrawer from '../Sidedrawer/Sidedrawer'
+import Sidedrawer from '../Sidedrawer/Sidedrawer';
+import Calendar from '../Calendar/Calendar';
 
 const Dashboard = () => {
     return (
-        <div>
+        <div className="d-flex">
             <Sidedrawer/>
-            <br/>
-            <h1>Hi</h1>
+            <Calendar />
         </div>
     )
 }
