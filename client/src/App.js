@@ -1,6 +1,6 @@
 import React from 'react';
 import { Route, useLocation, Redirect } from 'react-router-dom';
-import Dashboard from './components/Dashboard/dashboard';
+import Dashboard from './components/Dashboard/Dashboard';
 
 const App = () => {
   const pathname = useLocation().pathname;
