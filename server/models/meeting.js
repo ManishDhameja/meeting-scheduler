@@ -16,10 +16,6 @@ const attendeeSchema = new Schema({
 })
 
 const meetingSchema = new Schema({
-        meetingID: {
-            type: Number,
-            required: true
-        },
         startTime: {
             type: Date,
             required: true
@@ -46,4 +42,4 @@ const meetingSchema = new Schema({
     }
 )
 
-module.exports = mongoose.model('meeting', meetingSchema);
+module.exports = mongoose.model('Meeting', meetingSchema);

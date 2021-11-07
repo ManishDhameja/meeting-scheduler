@@ -10,7 +10,7 @@ exports.getUser = (req, res, next) => {
   .catch((err) => next(err));
 }
 exports.getMeetings = (req, res, next) => {
-  User.findOne({ email : req.body.email})
+  User.findOne({ email : req.body.email}).populate("meetings")
   .then((user) => {
     if(!user) {
       const error = new Error("A user with this username could not be found!");

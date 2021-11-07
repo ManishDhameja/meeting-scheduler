@@ -4,6 +4,6 @@ const router = express.Router();
 
 const meetingController = require('../controllers/meetingController');
 
-// router.get('/getmeetings', meetingController.getmeetings);
+router.post('/deleteMeeting', meetingController.deleteMeeting);
 
 module.exports = router; 

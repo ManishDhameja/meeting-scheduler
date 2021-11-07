@@ -14,30 +14,6 @@ const hoursSchema = new Schema({
   timestamps : true
 });
 
-const scheduledMeetingsSchema = new Schema({
-  meetingID: {
-      type: Number,
-    required: true
-  },
-  startTime: {
-    type : Date,
-    required: true
-  },
-  endTime: {
-    type : Date,
-    required: true
-  },
-  type: {
-    type: String,
-    enum: {
-      values: ['pending', 'denied', 'accepted'],
-      message: '{VALUE} is not supported'
-    }
-  }
-},{
-  timestamps : true
-});
-
 const userSchema = new Schema(
   {
     name: {
@@ -61,7 +37,12 @@ const userSchema = new Schema(
       required: true,
     },
     workingHours: [hoursSchema],
-    meetings: [scheduledMeetingsSchema],
+    meetings: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: "Meeting"
+      }
+    ],
   },
   {
     timestamps: true,
