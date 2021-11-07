@@ -30,7 +30,7 @@ const Sidedrawer = ({ show, closeSidedrawer }) => {
                 <div className="eventCard">
                     <p style={{ marginBottom: "-20px" }}>{stime}-{etime}</p>
                     <p style={{ marginBottom: "-20px" }}><b>{title}</b></p>
-                    <p>{description}</p>
+                    <p style={{ marginBottom: "-10px" }}>{description}</p>
                 </div>
             </div>
         </>
