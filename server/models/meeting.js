@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const attendeeSchema = new Schema({
-    username:{
+    username: {
         type: String,
         required:true
     },
@@ -12,10 +12,14 @@ const attendeeSchema = new Schema({
           values: ['Accepted', 'Pending', 'Denied'],
           message: '{VALUE} is not supported'
         }
-      }
+    }
 })
 
 const meetingSchema = new Schema({
+        meetingID: {
+            type: Number,
+            required: true
+        },
         startTime: {
             type: Date,
             required: true

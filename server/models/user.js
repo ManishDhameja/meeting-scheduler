@@ -15,6 +15,10 @@ const hoursSchema = new Schema({
 });
 
 const scheduledMeetingsSchema = new Schema({
+  meetingID: {
+      type: Number,
+    required: true
+  },
   startTime: {
     type : Date,
     required: true
