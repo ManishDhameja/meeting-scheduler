@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 
 const authRouter = require('./routes/auth');
 const userRouter = require('./routes/userRouter');
+const meetingRouter = require('./routes/meetingRouter');
 
 const app = express();
 
@@ -12,6 +13,7 @@ app.use(express.urlencoded({ extended: false }));
 
 app.use('/auth', authRouter);
 app.use('/users', userRouter);
+app.use('/meetings', meetingRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

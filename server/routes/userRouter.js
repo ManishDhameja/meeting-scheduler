@@ -6,7 +6,8 @@ const userController = require('../controllers/userController');
 
 const isAuth = require('../middlewares/is-auth');
 
-router.get('/', userController.getUser);
+router.get('/', isAuth, userController.getUser);
+router.post('/getMeetings', isAuth, userController.getMeetings);
 
 module.exports = router; 
 

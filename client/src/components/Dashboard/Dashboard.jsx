@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Sidedrawer from '../Sidedrawer/Sidedrawer';
 import Calendar from '../Calendar/Calendar';
 
@@ -9,9 +9,11 @@ const Dashboard = () => {
     }
     
     return (
-        <div className="d-flex">
-            <Sidedrawer/>
-            <Calendar />
+        <div style={{ height: "100vh", background: "#f4f4f4" }}>
+            <Sidedrawer
+                show={showSidedrawer}
+                closeSidedrawer={() => { }}
+            />
         </div>
     )
 }
