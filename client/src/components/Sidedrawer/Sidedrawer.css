@@ -1,0 +1,24 @@
+.Sidedrawer {
+    width: 30%;
+    height: 100%;
+    background: #e6fcfe;
+    padding: 10px 15px;
+    color: rgb(0, 5, 65);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.eventCard {
+    width: 100%;
+    background-color: white;
+    height: auto;
+    padding: 10px;
+    border-radius: 10px;
+    box-shadow: 2px 2px 2px 2px white;
+}
+
+.eventTitle {
+    margin-top: -20px;
+    margin-bottom: -20px;
+}

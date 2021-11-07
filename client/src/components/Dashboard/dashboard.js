@@ -1,12 +1,17 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Sidedrawer from '../Sidedrawer/Sidedrawer'
 
 const Dashboard = () => {
+    const [showSidedrawer, setShowSidedrawer] = useState(true);
+    const toggleSidedrawer = () => {
+        setShowSidedrawer(prevState => !prevState);
+    }
     return (
         <div>
-            <Sidedrawer/>
-            <br/>
-            <h1>Hi</h1>
+            <Sidedrawer 
+            show={showSidedrawer} 
+            closeSidedrawer={() => {}}
+            />
         </div>
     )
 }
