@@ -26,7 +26,6 @@ const InfoModal = ({ show, handleClose }) => {
                     Meeting Details
                     <IconButton onClick={handleClose}><ClearIcon /></IconButton>
                 </Modal.Header>
-<<<<<<< HEAD
                 <ModalBody> */}
       <div className="Content">
         {list.map((card) => {
@@ -38,19 +37,6 @@ const InfoModal = ({ show, handleClose }) => {
                     <span className="my-1 fs-2">{card.title}</span>
                     <div>
                       <span className="my-1 fs-5">{card.description}</span>
-=======
-                <Modal.Body>
-                    <div className="Content">{list.map((card) => {
-                        return (
-                            <>
-                                <p style={{ marginBottom: "-20px" }}>Timing: {getTimeFromTimestamp(card.startTime)} - {getTimeFromTimestamp(card.endTime)}</p>
-                                <p style={{ marginBottom: "-20px" }}><b>Title: {card.title}</b></p>
-                                <p style={{ marginBottom: "-10px" }}>Description: {card.decription}</p>
-                                <a href={card.meetingLink} target="_blank"><p style={{ marginBottom: "-10px", color: "blue" }}>Link: {card.meetingLink}</p></a>
-                            </>
-                        );
-                    })}
->>>>>>> 03710259f7f62139592f70989f72551c6aeeb347
                     </div>
                     <div>
                       <span className="my-3 fs-6">12:00pm - 3:00pm</span>
