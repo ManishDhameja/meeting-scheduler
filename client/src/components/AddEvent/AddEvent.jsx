@@ -2,10 +2,6 @@ import React, { useState } from "react";
 import { Modal, ModalBody, TabContent, TabPane } from "reactstrap";
 import ClearIcon from "@material-ui/icons/Clear";
 import {
-  FormControl,
-  InputLabel,
-  Select,
-  MenuItem,
   TextField,
   Autocomplete
 } from "@mui/material";
@@ -15,45 +11,35 @@ import DateTimePicker from "@mui/lab/DateTimePicker";
 
 const AddEvent = () => {
   const friends = [
-    "Jatin Bajaj",
-    "Rishab Goyal",
-    "Manish Dhameja",
-    "Rolit Trivedi",
+    {name:"Jatin Bajaj"},
+    {name:"Rishab Goyal"},
+    {name:"Manish Dhameja"},
+    {name:"Rolit Trivedi"}
   ];
   const friendList = [
-    "Jatin Bajaj",
-    "Rishab Goyal",
-    "Manish Dhameja",
-    "Rolit Trivedi",
-    "Jatin Bajaj",
-    "Rishab Goyal",
-    "Manish Dhameja",
-    "Rolit Trivedi",
+    {name:"Jatin Bajaj"},
+    {name:"Rishab Goyal"},
+    {name:"Manish Dhameja"},
+    {name:"Rolit Trivedi"},
+    {name:"Bajaj Honda"},
+    {name:"Goya"},
+    {name:"Tanish Malhotra"},
+    {name:"Jolit chaturvedi"},
   ];
 
-  const RenderFriends = () =>
-    friends.map((friend, index) => {
-      return (
-        <span
-          key="index"
-          class="badge rounded-pill bg-secondary me-3 mb-3 fs-6"
-        >
-          {friend}
-          <span style={{cursor:'pointer'}}>
-            <ClearIcon></ClearIcon>
-          </span>
-        </span>
-      );
-    });
-  const [friendName, setFriendName] = useState("");
-  const [value, setValue] = useState("Controlled");
+  const [selectedMember, setSelectedMember] = useState([]);
   const [start, setStart] = useState(new Date());
   const [end, setEnd] = useState(new Date());
 
-  const handleChange = (event) => {
-    setFriendName(event.target.value);
-    setValue(event.target.value);
-  };
+  const options = friendList.map((option) => {
+    const firstLetter = option.name[0].toUpperCase();
+    return {
+      firstLetter: /[0-9]/.test(firstLetter) ? '0-9' : firstLetter,
+      ...option,
+    };
+  });
+
+  
   return (
     <div className="container mt-3">
       <div className="row">
@@ -72,7 +58,7 @@ const AddEvent = () => {
             required
             multiline
             variant="standard"
-          />
+            />
         </div>
       </div>
       <div className="row py-2">
@@ -118,21 +104,11 @@ const AddEvent = () => {
               label=""
               value={end}
               onChange={(newValue) => {
-              setEnd(newValue);
+                setEnd(newValue);
               }}
               minDateTime={new Date()}
-            />
+              />
           </LocalizationProvider>
-        </div>
-      </div>
-      <div className="row py-2">
-        <div className="col-3">
-          <h5 className="my-3">Members :</h5>
-        </div>
-        <div className="col-9 mt-3">
-          <div>
-            <RenderFriends />
-          </div>
         </div>
       </div>
 
@@ -140,8 +116,22 @@ const AddEvent = () => {
         <div className="col-3">
           <h5 className="my-3">Select Members :</h5>
         </div>
-        <div className="col-9">
-          
+        <div className="col-8">
+        <Autocomplete
+        multiple
+        limitTags={5}
+        id="tags-standard"
+        options={options.sort((a, b) => -b.firstLetter.localeCompare(a.firstLetter))}
+        groupBy={(option) => option.firstLetter}
+        getOptionLabel={(option) => option.name}
+        renderInput={(params) => (
+          <TextField {...params} label="Members" placeholder="Add Member" />
+          )}
+          value={selectedMember}
+        onChange={(_event, selectedMember) => {
+          setSelectedMember(selectedMember);
+        }}
+      />
         </div>
       </div>
       <div className="row py-2">
@@ -154,7 +144,7 @@ const AddEvent = () => {
             label="Meeting Link or Location"
             multiline
             variant="standard"
-          />
+            />
         </div>
       </div>
       <div className="row py-2">
@@ -167,3 +157,39 @@ const AddEvent = () => {
 };
 
 export default AddEvent;
+
+{/* <Autocomplete
+  id="include-input-in-list"
+options={options.sort((a, b) => -b.firstLetter.localeCompare(a.firstLetter))}
+groupBy={(option) => option.firstLetter}
+getOptionLabel={(option) => option.name}
+includeInputInList
+renderInput={(params) => {
+  {console.log(params)}
+  return <TextField 
+    onChange={handleUpdateItem} 
+    value={searchTerm}
+    {...params} 
+    label="Select Members" 
+    variant="standard" />
+  }}
+/> */}
+  // const handleRemoveItem = (username) => {
+  //   // console.log(username);
+  //   setList(list.filter(friend => username !== friend.name));
+  // };
+  
+  // const RenderFriends = () =>
+  //   list.map((friend, index) => {
+  //     return (
+  //       <span
+  //         key="index"
+  //         class="badge rounded-pill bg-secondary me-3 mb-3 fs-6"
+  //       >
+  //         {friend.name}
+  //         <span style={{cursor:'pointer'}} onClick={()=>handleRemoveItem(friend.name)}>
+  //           <ClearIcon ></ClearIcon>
+  //         </span>
+  //       </span>
+  //     );
+  //   });
