@@ -60,7 +60,7 @@ export const AUTOLOGIN = () => async dispatch => {
     const userId = localStorage.getItem('Scheduler__userId');
     const userName = localStorage.getItem('Scheduler__userName');
     const userEmail = localStorage.getItem('Scheduler__userEmail');
-    await axios.post("",{ token: token })
+    await axios.post("http://localhost:5000/auth/verifyToken",{ token: token })
     .then((res)=>{
       dispatch(LOGIN({
         token: token,
@@ -89,8 +89,8 @@ export const ASYNC_LOGIN = userData => dispatch => {
     email: userData.email,
     password: userData.password,
   }
-  let URL = "";
-  // console.log(authData);
+  let URL = "http://localhost:5000/auth/signin";
+  console.log(authData);
   axios.post(URL, authData)
   .then(response => {
     const token = response.data.token;
@@ -104,8 +104,9 @@ export const ASYNC_LOGIN = userData => dispatch => {
     dispatch(SET_LOGGING(false));
   })
   .catch(err => {
-    console.log(err.response.data.message);
-    dispatch(SET_ERROR(err.response.data.message));
+    console.log(err);
+    // console.log(err.response.data.message);
+    // dispatch(SET_ERROR(err.response.data.message));
     dispatch(SET_LOADING(false));
     dispatch(SET_LOGGING(false));
   })
@@ -117,7 +118,7 @@ export const ASYNC_SIGNUP = authData => dispatch => {
       
   dispatch(SET_LOADING(true));
 
-  let URL = "";
+  let URL = "http://localhost:5000/auth/signup";
   axios.post(URL, authData)
   .then(response => {
     const token = response.data.token;
@@ -131,6 +132,7 @@ export const ASYNC_SIGNUP = authData => dispatch => {
     dispatch(SET_LOGGING(false));
   })
   .catch(err => {
+    console.log(err);
     console.log(err.response.data.message);
     dispatch(SET_ERROR(err.response.data.message));
     dispatch(SET_LOADING(false));
