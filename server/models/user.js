@@ -11,7 +11,8 @@ const hoursSchema = new Schema({
     required: true
   }
 },{
-  timestamps : true
+  timestamps: true,
+  usePushEach: true
 });
 
 const userSchema = new Schema(
@@ -46,6 +47,7 @@ const userSchema = new Schema(
   },
   {
     timestamps: true,
+    usePushEach: true
   }
 );
 

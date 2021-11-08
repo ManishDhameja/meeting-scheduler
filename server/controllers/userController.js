@@ -1,7 +1,7 @@
 const User = require('../models/user');
 
 exports.getUser = (req, res, next) => {
-  User.find({})
+  User.find({}).populate('meetings')
   .then((users) => {
     res.statusCode = 200;
     res.setHeader('Content-Type', 'application/json');
