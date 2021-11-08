@@ -8,6 +8,7 @@ const isAuth = require('../middlewares/is-auth');
 
 router.get('/', userController.getUser);
 router.post('/getMeetings', userController.getMeetings);
+// router.post('/getUpcomingAcceptedMeetings', userController.getUpcomingAcceptedMeeting);
 router.post('/addWorkingHours', userController.addWorkingHours);
 
 module.exports = router; 
