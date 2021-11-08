@@ -1,5 +1,5 @@
 import React from "react";
-import { Modal, ModalBody } from "reactstrap";
+import { Modal, ModalBody, ModalHeader, ModalFooter } from "reactstrap";
 import { getTimeFromTimestamp } from "../../utilities";
 // import Button from '@material-ui/core/Button';
 import ClearIcon from "@material-ui/icons/Clear";
@@ -7,7 +7,7 @@ import IconButton from "@material-ui/core/IconButton";
 import { margin } from "@mui/system";
 import { Avatar } from "@material-ui/core";
 
-const InfoModal = ({ show, handleClose }) => {
+const InfoModal = (props) => {
   const list = [
     {
       startTime: 1636362006000,
@@ -21,12 +21,13 @@ const InfoModal = ({ show, handleClose }) => {
 
   return (
     <>
-      {/* <Modal show={show} onHide={handleClose}>
-                <Modal.Header className="Modal-header">
+      <Modal isOpen={props.isModalOpen}
+      toggle={props.toggleModal}>
+                <ModalHeader className="Modal-header">
                     Meeting Details
-                    <IconButton onClick={handleClose}><ClearIcon /></IconButton>
-                </Modal.Header>
-                <ModalBody> */}
+                    {/* <IconButton onClick={handleClose}><ClearIcon /></IconButton> */}
+                </ModalHeader>
+                <ModalBody>
       <div className="Content">
         {list.map((card) => {
           return (
@@ -103,8 +104,8 @@ const InfoModal = ({ show, handleClose }) => {
           );
         })}
       </div>
-      {/* </ModalBody>
-            </Modal> */}
+      </ModalBody>
+            </Modal>
     </>
   );
 };
