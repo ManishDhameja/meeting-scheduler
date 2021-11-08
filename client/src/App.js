@@ -1,6 +1,7 @@
 import React from 'react';
 import { Route, useLocation, Redirect, BrowserRouter, Switch } from 'react-router-dom';
 import Dashboard from './components/Dashboard/Dashboard';
+import InfoModal from './components/Modals/InfoModal';
 
 const App = () => {
   const pathname = useLocation().pathname;
@@ -17,6 +18,7 @@ const App = () => {
     <BrowserRouter>
       <Switch>
         <Route path = "/calendar/:year/:month/:date" exact component={Dashboard}/>
+        <Route path = "/infomodal" exact component={InfoModal}/>
       </Switch>
     </BrowserRouter>
   );
