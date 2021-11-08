@@ -12,8 +12,8 @@
 }
 
 .HeaderTitle {
-    font-size: 27px;
-    font-weight: bold;
+    font-size: 21px;
+    font-weight: 500;
 }
 
 .HeaderNavDateBtns {
@@ -27,7 +27,7 @@
 }
 
 .HeaderDateselected {
-    font-size: 24px;
+    font-size: 20px;
 }
 
 .HeaderDropdown {
