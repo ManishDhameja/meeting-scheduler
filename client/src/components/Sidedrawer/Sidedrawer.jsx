@@ -30,16 +30,15 @@ const Sidedrawer = ({ show, closeSidedrawer }) => {
 
     return (
         <>
-            <div className={"Sidedrawer " + (closing ? "Sidedrawer_Close" : (show ? "Sidedrawer_Open" : ""))}>
-                <h1 style={{ fontSize: "4rem", marginBottom: "-20px" }}>Upcomming Events</h1>
-                <p style={{ fontSize: "2rem" }}>Don't miss sheduled events</p>
-                <div className="content"> {list.map((card) => {
+            <div className="Sidedrawer px-4">
+                <h1 style={{ fontSize: "1.7rem"}} className="pt-3">Upcomming Events</h1>                    
+                <p style={{ fontSize: "1.1rem" }} className="text-center">Don't miss sheduled events</p>
+                <div className="content w-100"> {list.map((card) => {
                     return (
-                        <div className="eventCard">
-                            <p style={{ marginBottom: "-20px" }}>{getTimeFromTimestamp(card.startTime)} - {getTimeFromTimestamp(card.endTime)}</p>
-                            <p style={{ marginBottom: "-20px" }}><b>{card.title}</b></p>
-                            <p style={{ marginBottom: "-10px" }}>{card.decription}</p>
-                            <a href={card.meetingLink} target="_blank"><p style={{ marginBottom: "-10px", color: "blue" }}>{card.meetingLink}</p></a>
+                        <div className="eventCard p-3 pb-4">
+                            <p style={{ fontSize:"0.8rem" }} className="mb-0">{getTimeFromTimestamp(card.startTime)} - {getTimeFromTimestamp(card.endTime)}</p>
+                            <p style={{ fontSize:"1rem"}} className="mb-0"><span style={{fontWeight:"500"}}>{card.title}</span> - <span style={{fontSize:"0.8rem"}}>{card.decription}</span></p>
+                            <a href={card.meetingLink} target="_blank"><p style={{ marginBottom: "-10px", color: "blue",fontSize:"0.8rem" }}>{card.meetingLink}</p></a>
                         </div>
                     );
                 })}
