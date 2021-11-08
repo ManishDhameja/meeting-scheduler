@@ -7,9 +7,9 @@ const Dashboard = () => {
     const toggleSidedrawer = () => {
         setShowSidedrawer(prevState => !prevState);
     }
-    
+
     return (
-        <div className="d-flex" style={{ height: "100vh", background: "#f4f4f4" }}>
+        <div className="Dashboard d-flex" style={{ height: "100vh", background: "#f4f4f4" }}>
             <Sidedrawer
                 show={showSidedrawer}
                 closeSidedrawer={() => { }}
