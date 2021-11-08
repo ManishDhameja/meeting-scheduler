@@ -10,14 +10,16 @@ const Dashboard = () => {
     }
 
     return (
-        <div className="Dashboard d-flex" style={{ height: "100vh", background: "#f4f4f4" }}>
+        <>
             <Header />
-            <Sidedrawer
-                show={showSidedrawer}
-                closeSidedrawer={() => { }}
-            />
-            <Calendar />
-        </div>
+            <div className="Dashboard d-flex" style={{ height: "100vh", background: "#f4f4f4" }}>
+                <Sidedrawer
+                    show={showSidedrawer}
+                    closeSidedrawer={() => { }}
+                />
+                <Calendar />
+            </div>
+        </>
     )
 }
 
