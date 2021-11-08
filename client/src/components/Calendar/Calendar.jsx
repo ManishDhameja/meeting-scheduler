@@ -121,6 +121,10 @@ const Calendar = () => {
 
     return (
         <>
+        <AddEvent 
+            isModalOpen={show} 
+            toggleModal={toggle} 
+        />
         <div className="Calendar">
             <div className="Schedule">
                 <div className="Schedule_Timings ">
@@ -206,10 +210,7 @@ const Calendar = () => {
                 </div>
             </div>
         </div>
-        <AddEvent 
-            isModalOpen={show} 
-            toggleModal={toggle} 
-        />
+        
         </>
     )
 }
