@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Sidedrawer from '../Sidedrawer/Sidedrawer';
 import Calendar from '../Calendar/Calendar';
 import Header from '../Header/Header';
-
+import Modal from '../Modals/InfoModal'
 const Dashboard = () => {
     const [showSidedrawer, setShowSidedrawer] = useState(true);
     const toggleSidedrawer = () => {

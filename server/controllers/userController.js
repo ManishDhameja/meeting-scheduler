@@ -9,6 +9,7 @@ exports.getUser = (req, res, next) => {
   })
   .catch((err) => next(err));
 }
+
 exports.getMeetings = (req, res, next) => {
   User.findOne({ email : req.body.email}).populate("meetings")
   .then((user) => {
@@ -23,6 +24,7 @@ exports.getMeetings = (req, res, next) => {
   })
   .catch((err) => next(err));
 }
+
 exports.addWorkingHours = (req, res, next) => {
   User.findOne({ email : req.body.email})
   .then((user) => {

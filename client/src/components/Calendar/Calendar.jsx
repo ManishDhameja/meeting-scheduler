@@ -2,9 +2,10 @@ import React, { useState, useEffect } from 'react';
 import './Calendar.css';
 import { shortWeeks, getDateUtil, getFirstLastDayOfWeek, getLastDateOfMonth, getCompleteMonth, getDateStr, getTimeAMPM, getFirstDayOfMonth } from '../../utilities';
 // import ScheduleModal from '../ScheduleModal/ScheduleModal';
-// import { BsTrash } from 'react-icons/bs';
-// import { FiEdit } from 'react-icons/fi';
-// import { IconContext } from 'react-icons';
+import { BsInfoCircle } from 'react-icons/bs';
+import { FiEdit } from 'react-icons/fi';
+import { FiExternalLink } from 'react-icons/fi';
+import { IconContext } from 'react-icons';
 import { useParams } from 'react-router-dom';
 
 const getWeekInfoList = (currYear, currMonth, currDate) => {
@@ -72,33 +73,45 @@ const Calendar = () => {
     const date = useParams().date;
     console.log(useParams());
 
-    const weekList = getWeekInfoList(parseInt(year), parseInt(month), parseInt(date));
+    const weekList = getWeekInfoList(parseInt(year), parseInt(month)-1, parseInt(date));
     console.log(weekList);
     const timings = getTimings();
+    console.log("timings: ", timings);
     const [meetList, setMeetList] = useState([]);
 
     useEffect(() => {
         setMeetList([
             {
-                meetingId: "https://meet.google.com/zpr-tczz-qnu",
-                startTime: 1636223400000,
-                endTime: 1636237800000,
+                meetingLink: "https://meet.google.com/zpr-tczz-qnu",
+                startTime: 1636342200000,
+                endTime: 1636349400000,
                 type: "pending",
-                _id: "rwdewjo21233nkm2143"
+                _id: "rwdewjo21233nkm2143",
+                title: "Design Team"
             },
             {
-                meetingId: "https://meet.google.com/zpr-tczz-qnu",
-                startTime: 1636245000000,
-                endTime: 1636252200000,
+                meetingLink: "https://meet.google.com/zpr-tczz-qnu",
+                startTime: 1636342200000,
+                endTime: 1636349400000,
                 type: "denied",
-                _id: "rwdewjo21233nkm3143"
+                _id: "rwdewjo21233nkm3143",
+                title: "Feature Discussion"
             },
             {
-                meetingId: "https://meet.google.com/zpr-tczz-qnu",
-                startTime: 1636266600000,
-                endTime: 1636277400000,
+                meetingLink: "https://meet.google.com/zpr-tczz-qnu",
+                startTime: 1636342200000,
+                endTime: 1636349400000,
                 type: "accepted",
-                _id: "rwdewjo212r3nkm2143"
+                _id: "rwdewjo212r3nkm2143",
+                title: "UI/UX team"
+            },
+            {
+                meetingLink: "https://meet.google.com/zpr-tczz-qnu",
+                startTime: 1636410600000,
+                endTime: 1636417800000,
+                type: "accepted",
+                _id: "rwdewjo212rwnkm2143",
+                title: "UI/UX team"
             }
         ])
     }, [])
@@ -154,14 +167,26 @@ const Calendar = () => {
 
                                                             return <div className="Meet">
                                                                 <div className="Meet_Options">
-                                                                    {/* <IconContext.Provider value={{className: "Meet_Update"}}>
-                                                                        <FiEdit onClick={(event) => updateMeet(event, meet.id, startTime.getHours(), startTime.getMinutes(), endTime.getHours(), endTime.getMinutes(), week.year, week.month, week.date, meet.teacher_id)}/>
+                                                                    <IconContext.Provider value={{className: "Meet_Update"}}>
+                                                                        <BsInfoCircle onClick={(event) => {}}/>
                                                                     </IconContext.Provider>
-                                                                    <IconContext.Provider value={{className: "Meet_Delete"}}>
-                                                                        <BsTrash onClick={() => deleteMeet(meet.id)} />
-                                                                    </IconContext.Provider> */}
+                                                                    <IconContext.Provider value={{className: "Meet_Link"}}>
+                                                                        <a href={meet.meetingLink} target="_blank">
+                                                                            <FiExternalLink/>
+                                                                        </a>
+                                                                    </IconContext.Provider>
                                                                 </div>
-                                                                <p className="Meet_Title">{meet}</p>
+                                                                
+                                                                <p className="Meet_Title">
+                                                                    {meet.title.length > 11 ? meet.title.substr(0, 11) + "..." : meet.title}
+                                                                    {
+                                                                        meet.title.length > 11 ? (
+                                                                            <div className="tooltiptext">
+                                                                                {meet.title}
+                                                                            </div>
+                                                                        ) : null
+                                                                    }
+                                                                </p>
                                                                 <p className="Meet_Timings">{startT} to {endT}</p>
                                                             </div>
                                                         })
