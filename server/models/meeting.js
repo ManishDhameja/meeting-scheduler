@@ -17,6 +17,10 @@ const attendeeSchema = new Schema({
 })
 
 const meetingSchema = new Schema({
+        host: {
+            type: String,
+            required: true
+        },
         startTime: {
             type: Date,
             required: true
