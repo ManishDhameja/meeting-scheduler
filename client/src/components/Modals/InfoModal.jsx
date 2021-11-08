@@ -17,7 +17,7 @@ const InfoModal = ({ show, handleClose }) => {
         }
     ];
 
-    return (
+    return ( 
         <>
             <Modal show={show} onHide={handleClose}>
                 <Modal.Header className="Modal-header">

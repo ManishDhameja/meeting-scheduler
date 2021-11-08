@@ -1,6 +1,5 @@
 import React from 'react';
 import { Route, useLocation, Redirect, BrowserRouter, Switch } from 'react-router-dom';
-import AddEvent from './components/AddEvent/AddEvent';
 import Dashboard from './components/Dashboard/Dashboard';
 
 const App = () => {
@@ -18,7 +17,6 @@ const App = () => {
     <BrowserRouter>
       <Switch>
         <Route path = "/calendar/:year/:month/:date" exact component={Dashboard}/>
-        <Route path = "/addevent" exact component={AddEvent}/>
       </Switch>
     </BrowserRouter>
   );
