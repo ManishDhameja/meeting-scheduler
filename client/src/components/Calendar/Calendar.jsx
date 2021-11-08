@@ -8,6 +8,7 @@ import { FiExternalLink } from 'react-icons/fi';
 import { IconContext } from 'react-icons';
 import { useParams } from 'react-router-dom';
 import AddEvent from '../Modals/AddEvent/AddEvent';
+import InfoModal from '../Modals/InfoModal';
 
 const getWeekInfoList = (currYear, currMonth, currDate) => { 
     console.log(currYear, currMonth, currDate);
@@ -71,6 +72,8 @@ const getTimings = () => {
 const Calendar = () => {
     const [show, setShow] = useState(false);
     const toggle = () => setShow(prevState=>!prevState);
+    const [showInfo, setShowInfo] = useState(false);
+    const toggleInfo = () => setShowInfo(prevState=>!prevState);
     const year = useParams().year;
     const month = useParams().month;
     const date = useParams().date;
@@ -159,7 +162,7 @@ const Calendar = () => {
                                                 })
 
                                                 return <li
-                                                onClick={() => setShow(true)}
+                                                onClick={() => setShowInfo(true)}
                                                 className="Schedule_Cell_Week Light_BorderB Light_BorderR">
                                                     {
                                                         meetings.map(meet => {
@@ -209,6 +212,10 @@ const Calendar = () => {
         <AddEvent 
             isModalOpen={show} 
             toggleModal={toggle} 
+        />
+        <InfoModal 
+            isModalOpen={showInfo} 
+            toggleModal={toggleInfo} 
         />
         </>
     )
