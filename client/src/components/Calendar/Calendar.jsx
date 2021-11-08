@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import './Calendar.css';
 import { shortWeeks, getDateUtil, getFirstLastDayOfWeek, getLastDateOfMonth, getCompleteMonth, getDateStr, getTimeAMPM, getFirstDayOfMonth } from '../../utilities';
 // import ScheduleModal from '../ScheduleModal/ScheduleModal';
-import { BsTrash } from 'react-icons/bs';
+import { BsInfoCircle } from 'react-icons/bs';
 import { FiEdit } from 'react-icons/fi';
 import { FiExternalLink } from 'react-icons/fi';
 import { IconContext } from 'react-icons';
@@ -82,7 +82,7 @@ const Calendar = () => {
     useEffect(() => {
         setMeetList([
             {
-                meetingId: "https://meet.google.com/zpr-tczz-qnu",
+                meetingLink: "https://meet.google.com/zpr-tczz-qnu",
                 startTime: 1636342200000,
                 endTime: 1636349400000,
                 type: "pending",
@@ -90,7 +90,7 @@ const Calendar = () => {
                 title: "Design Team"
             },
             {
-                meetingId: "https://meet.google.com/zpr-tczz-qnu",
+                meetingLink: "https://meet.google.com/zpr-tczz-qnu",
                 startTime: 1636342200000,
                 endTime: 1636349400000,
                 type: "denied",
@@ -98,7 +98,7 @@ const Calendar = () => {
                 title: "Feature Discussion"
             },
             {
-                meetingId: "https://meet.google.com/zpr-tczz-qnu",
+                meetingLink: "https://meet.google.com/zpr-tczz-qnu",
                 startTime: 1636342200000,
                 endTime: 1636349400000,
                 type: "accepted",
@@ -106,7 +106,7 @@ const Calendar = () => {
                 title: "UI/UX team"
             },
             {
-                meetingId: "https://meet.google.com/zpr-tczz-qnu",
+                meetingLink: "https://meet.google.com/zpr-tczz-qnu",
                 startTime: 1636410600000,
                 endTime: 1636417800000,
                 type: "accepted",
@@ -168,13 +168,25 @@ const Calendar = () => {
                                                             return <div className="Meet">
                                                                 <div className="Meet_Options">
                                                                     <IconContext.Provider value={{className: "Meet_Update"}}>
-                                                                        <FiEdit onClick={(event) => {}}/>
+                                                                        <BsInfoCircle onClick={(event) => {}}/>
                                                                     </IconContext.Provider>
-                                                                    <IconContext.Provider value={{className: "Meet_Delete"}}>
-                                                                        <FiExternalLink onClick={() => {}} />
+                                                                    <IconContext.Provider value={{className: "Meet_Link"}}>
+                                                                        <a href={meet.meetingLink} target="_blank">
+                                                                            <FiExternalLink/>
+                                                                        </a>
                                                                     </IconContext.Provider>
                                                                 </div>
-                                                                <p className="Meet_Title">{meet.title.length > 14 ? meet.title.substr(0, 14) + "..." : meet.title}</p>
+                                                                
+                                                                <p className="Meet_Title">
+                                                                    {meet.title.length > 11 ? meet.title.substr(0, 11) + "..." : meet.title}
+                                                                    {
+                                                                        meet.title.length > 11 ? (
+                                                                            <div className="tooltiptext">
+                                                                                {meet.title}
+                                                                            </div>
+                                                                        ) : null
+                                                                    }
+                                                                </p>
                                                                 <p className="Meet_Timings">{startT} to {endT}</p>
                                                             </div>
                                                         })

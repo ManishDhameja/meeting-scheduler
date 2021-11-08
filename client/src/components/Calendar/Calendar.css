@@ -43,6 +43,21 @@
     display: none;
 }
 
+.Meet_Update {
+    margin: 0 4px;
+    color: rgb(6, 6, 70);
+    cursor: pointer;
+}
+
+.Meet_Link {
+    cursor: pointer;
+    color: black !important;
+}
+
+.Meet_Link a {
+    color: black !important;
+}
+
 .Meet:hover .Meet_Options {
     display: block;
 }
@@ -51,6 +66,7 @@
     font-size: 16px;
     font-weight: bold;
     margin: 0;
+    width: fit-content;
 }
 
 .Meet_Timings {
@@ -163,4 +179,29 @@
     font-weight: 600;
     color: #444;
     font-size: 18px;
+}
+
+.Meet_Title {
+    position: relative;
+}
+
+.tooltiptext {
+    display: none;
+    background-color: rgb(59, 56, 56);
+    color: rgb(255 255 255 / 85%);
+    text-align: center;
+    padding: 1px 6px 2px 6px;
+    border-radius: 2px;
+    position: absolute;
+    top: 22px;
+    left: 5px;
+    z-index: 10000;
+    font-size: 11px;
+    font-weight: normal;
+    /* width: 110px; */
+    width:max-content;
+}
+
+.Meet_Title:hover .tooltiptext {
+    display: block;
 }
