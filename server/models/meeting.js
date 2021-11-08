@@ -8,10 +8,11 @@ const attendeeSchema = new Schema({
     },
     status: {
         type: String,
-        enum: {
-          values: ['Accepted', 'Pending', 'Denied'],
-          message: '{VALUE} is not supported'
-        }
+        required:true
+        // enum: {
+        //   values: ['Accepted', 'Pending', 'Denied'],
+        //   message: '{VALUE} is not supported'
+        // }
     }
 })
 
@@ -35,10 +36,11 @@ const meetingSchema = new Schema({
         meetingLink: {
             type: String,
         },
-        attendee : [attendeeSchema],
+        attendees : [attendeeSchema],
     },
     {
-        timestamps: true
+        timestamps: true,
+        usePushEach: true
     }
 )
 

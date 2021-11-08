@@ -1,0 +1,74 @@
+.HeaderContainer {
+    background: rgb(133, 133, 133);
+    color: white;
+    padding: 10px 25px 10px 25px;
+}
+
+.Header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.HeaderTitle {
+    font-size: 27px;
+    font-weight: bold;
+}
+
+.HeaderNavDateBtns {
+    margin: 0 10px;
+}
+
+.HeaderNavDateIcons {
+    font-size: 35px;
+    cursor: pointer;
+    margin-bottom: -5px;
+}
+
+.HeaderDateselected {
+    font-size: 24px;
+}
+
+.HeaderDropdown {
+    background-color: rgb(50, 53, 58);
+    padding: 5px 8px;
+    border-radius: 2px;
+    color: white;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.HeaderDropdown>option {
+    padding: 10px;
+    cursor: pointer !important;
+}
+
+.HeaderSelector {
+    margin-right: 40px;
+}
+
+.DateButton {
+    display: flex;
+    align-items: center;
+    padding: 7px 12px;
+    font-size: 16px;
+    background-color: rgb(50, 53, 58);
+    border: 1px solid #bab8b8;
+    color: white;
+    border-radius: 3px;
+    cursor: pointer;
+    margin: 0 10px;
+}
+
+.DateButton:hover {
+    background-color: rgb(40 46 55);
+}
+
+.Headersubpart {
+    display: flex;
+    align-items: center;
+    flex-grow: 1;
+}
