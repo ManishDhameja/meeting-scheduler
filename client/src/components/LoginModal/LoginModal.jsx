@@ -216,10 +216,10 @@ const LoginModal = (props) => {
             <TabPane tabId="1">
               {/* SIGN IN */}
               <div className="row pb-5">
-                <div className="col-lg-6 d-none d-lg-block px-md-5">
+                {/* <div className="col-lg-6 d-none d-lg-block px-md-5">
                   <div className="row">
                     <div className="col-12 d-flex justify-content-center align-items-center  ">
-                      {/* <img src={SingUpImage} width="80%" /> */}
+                      <img src={SingUpImage} width="80%" />
                     </div>
                   </div>
                   <div className="row">
@@ -235,8 +235,8 @@ const LoginModal = (props) => {
                       </a>
                     </div>
                   </div>
-                </div>
-                <div className="col-12 col-lg-6 px-md-5 mt-4">
+                </div> */}
+                <div className="col-12 px-md-5 mt-4">
                   <form className={classes.root}>
                     <FormControl
                       error={emailError}
@@ -321,7 +321,7 @@ const LoginModal = (props) => {
             <TabPane tabId="2">
               {/* SIGN UP */}
               <div className="row pb-4 mb-1">
-                <div className="col-12 col-lg-6 px-md-5">
+                <div className="col-12 px-md-5">
                   <form className={classes.root}>
                     <FormControl
                       error={emailError}
@@ -446,10 +446,10 @@ const LoginModal = (props) => {
                     </div>
                   </form>
                 </div>
-                <div className="col-lg-6 d-none d-lg-block px-md-5">
+                {/* <div className="col-lg-6 d-none d-lg-block px-md-5">
                   <div className="row">
                     <div className="col-12 d-flex justify-content-center align-items-center pt-2">
-                      {/* <img src={SingInImage} width="95%" /> */}
+                      <img src={SingInImage} width="95%" />
                     </div>
                   </div>
                   <div className="row">
@@ -465,7 +465,7 @@ const LoginModal = (props) => {
                       </a>
                     </div>
                   </div>
-                </div>
+                </div> */}
               </div>
             </TabPane>
           </TabContent>

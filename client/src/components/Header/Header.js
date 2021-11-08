@@ -33,7 +33,7 @@ const Header = () => {
   const token = storeData.token;
   const userEmail = storeData.userEmail;
   const ConditionalBtn = () => {
-    if(true) {
+    if(token) {
       return (
         <li className="nav-item text-start">
           <UncontrolledDropdown nav className="p-0">
@@ -60,7 +60,7 @@ const Header = () => {
     }
     else {
       return (
-        <li className="nav-item mx-3"><button className="login-btn" onClick={() => setShow(true)}>Login</button></li>
+        <li className="nav-item mx-3"><button className="form-btn my-2" onClick={() => setShow(true)}>Login</button></li>
       );
     }
   }
