@@ -1,6 +1,5 @@
 import React, {useEffect} from 'react';
 import { Route, useLocation, Redirect, BrowserRouter, Switch } from 'react-router-dom';
-import AddEvent from './components/AddEvent/AddEvent';
 import Dashboard from './components/Dashboard/Dashboard';
 import { useDispatch, useSelector } from 'react-redux';
 import { AUTOLOGIN, selectUserData } from './reduxSlices/authSlice';
@@ -24,7 +23,7 @@ const App = () => {
     <BrowserRouter>
       <Switch>
         <Route path = "/calendar/:year/:month/:date" exact component={Dashboard}/>
-        <Route path = "/addevent" exact component={AddEvent}/>
+        {/* <Route path = "/infomodal" exact component={InfoModal}/> */}
       </Switch>
     </BrowserRouter>
   );

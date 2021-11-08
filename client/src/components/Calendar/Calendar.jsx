@@ -7,8 +7,9 @@ import { FiEdit } from 'react-icons/fi';
 import { FiExternalLink } from 'react-icons/fi';
 import { IconContext } from 'react-icons';
 import { useParams } from 'react-router-dom';
+import AddEvent from '../Modals/AddEvent/AddEvent';
 
-const getWeekInfoList = (currYear, currMonth, currDate) => {
+const getWeekInfoList = (currYear, currMonth, currDate) => { 
     console.log(currYear, currMonth, currDate);
     let weekInfo = getFirstLastDayOfWeek(currYear, currMonth, currDate);
     let day = getDateUtil(weekInfo[0].year, weekInfo[0].month, weekInfo[0].date).getDay();
@@ -68,6 +69,8 @@ const getTimings = () => {
 }
 
 const Calendar = () => {
+    const [show, setShow] = useState(false);
+    const toggle = () => setShow(prevState=>!prevState);
     const year = useParams().year;
     const month = useParams().month;
     const date = useParams().date;
@@ -117,6 +120,11 @@ const Calendar = () => {
     }, [])
 
     return (
+        <>
+        <AddEvent 
+            isModalOpen={show} 
+            toggleModal={toggle} 
+        />
         <div className="Calendar">
             <div className="Schedule">
                 <div className="Schedule_Timings ">
@@ -155,7 +163,7 @@ const Calendar = () => {
                                                 })
 
                                                 return <li
-                                                onClick={(event) => {console.log("Create Meeting Modal")}} 
+                                                onClick={() => setShow(true)}
                                                 className="Schedule_Cell_Week Light_BorderB Light_BorderR">
                                                     {
                                                         meetings.map(meet => {
@@ -202,6 +210,8 @@ const Calendar = () => {
                 </div>
             </div>
         </div>
+        
+        </>
     )
 }
 

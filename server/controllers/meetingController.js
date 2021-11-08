@@ -1,6 +1,6 @@
 const Meeting = require("../models/meeting");
 const User = require("../models/user");
-var ObjectId = require('mongodb').ObjectID;
+const ObjectId = require('mongoose').Types.ObjectId;
 
 
 exports.createMeeting = async (req, res, next) => {
@@ -10,37 +10,48 @@ exports.createMeeting = async (req, res, next) => {
   const description = req.body.description;
   const meetingLink = req.body.meetingLink;
   const attendees = req.body.attendees;
-  for(let att of attendees){
-  await User.findOne({ username: att.username })
-    .populate('meetings')
-    .then((user) => {
-      if (!user) {
-        res.statusCode = 401;
-        res.end(`A user with username ${att.username} could not be found!`);
-      }
-      else {
-        var flag = "notAvaliable";
-        for(var i=0;i<user.workingHours.length;i++){
-          hr = user.workingHours[i];
-          if (hr.startTime <= startTime && hr.endTime >= endTime) {
-            user.meetings.map((meet) => {
-              if ((meet.startTime >= startTime && meet.startTime <= endTime) || (meet.endTime >= startTime && meet.endTime <= endTime)) {
-                res.statusCode = 401;
-                res.end(`${user.name} is already scheduled somewhere`);
-              }
-            });
-            flag = "scheduled";
-            break;
+  const host = req.body.host;
+
+  try {
+    for(const att of attendees) {
+      await User.findOne({ username: att.username })
+        .then((user) => {
+          if (!user) {
+            const err = new Error(`A user with username ${att.username} could not be found!`);
+            err.statusCode = 401;
+            throw err;
           }
-        }
-        if (flag === "notAvaliable") {
-          res.statusCode = 401;
-          res.end(`${user.name} is not avaliable`);
-        }
-      }
-    })
-    .catch(err => {return next(err)});
+          else {
+            var flag = "notAvaliable";
+            for(var i=0;i<user.workingHours.length;i++){
+              hr = user.workingHours[i];
+              if (hr.startTime <= startTime && hr.endTime >= endTime) {
+                user.meetings.map((meet) => {
+                  if ((meet.startTime >= startTime && meet.startTime <= endTime) || (meet.endTime >= startTime && meet.endTime <= endTime)) {
+                    const err = new Error(`A user with username ${att.username} could not be found!`);
+                    err.statusCode = 401;
+                    throw err;
+                  }
+                });
+                flag = "scheduled";
+                // break;
+              }
+            }
+            if (flag === "notAvaliable") {
+              const err = new Error(`A user with username ${att.username} could not be found!`);
+              err.statusCode = 401;
+              return next(err);
+            }
+          }
+        })
+        .catch(err => {
+          throw err;
+        });
+    }
+  } catch(err) {
+    return next(err);
   }
+
   Meeting.create({
     startTime: startTime,
     endTime: endTime,
@@ -48,6 +59,7 @@ exports.createMeeting = async (req, res, next) => {
     description: description,
     meetingLink: meetingLink,
     attendees: attendees,
+    host: host
   })
   .then((meet) => {
     attendees.map((attendee) => {
@@ -67,7 +79,9 @@ exports.createMeeting = async (req, res, next) => {
     res.setHeader('Content-Type', 'application/json');
     res.json(meet);
   })
-  .catch((err) => next(err));
+  .catch((err) => {
+    return next(err);
+  });
 };
 
 exports.deleteMeeting = (req, res, next) => {
@@ -93,3 +107,62 @@ exports.deleteMeeting = (req, res, next) => {
     })
     .catch((err) => next(err));
 };
+
+exports.acceptMeeting = (req, res, next) => {
+  const username = req.body.username;
+  const meetingId = req.body.meetingId;
+  Meeting.findById(meetingId)
+    .then(meeting => {
+      let flag = true;
+      meeting.attendees.forEach((attendee, index) => {
+        if (attendee.username === username) {
+          flag = false;
+          meeting.attendees[index].status = "Accepted";
+        }
+      })
+      if (flag) {
+        const err = new Error(`No user with username '${username}' found!`);
+        err.statusCode = 400;
+        return next(err);
+      }
+      meeting.save()
+      .then(result => {
+        res.json("Meeting accepted.");
+      })
+    })
+    .catch(err => {
+      next(err);
+    })
+}
+
+exports.declineMeeting = (req, res, next) => {
+  const username = req.body.username;
+  const meetingId = req.body.meetingId;
+  Meeting.findById(meetingId)
+    .then(meeting => {
+      if (!meeting) {
+        const err = new Error(`Meeting not found.`);
+        err.statusCode = 400;
+        return next(err);
+      }
+      let flag = true;
+      meeting.attendees.forEach((attendee, index) => {
+        if (attendee.username === username) {
+          flag = false;
+          meeting.attendees[index].status = "Declined";
+        }
+      })
+      if (flag) {
+        const err = new Error(`No user with username '${username}' found!`);
+        err.statusCode = 400;
+        return next(err);
+      }
+      meeting.save()
+      .then(result => {
+        res.json("Meeting declined.");
+      })
+    })
+    .catch(err => {
+      next(err);
+    })
+}
