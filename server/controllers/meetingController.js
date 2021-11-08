@@ -1,5 +1,7 @@
 const Meeting = require("../models/meeting");
 const User = require("../models/user");
+var ObjectId = require('mongodb').ObjectID;
+
 
 exports.createMeeting = async (req, res, next) => {
   const startTime = req.body.startTime;
@@ -9,20 +11,20 @@ exports.createMeeting = async (req, res, next) => {
   const meetingLink = req.body.meetingLink;
   const attendees = req.body.attendees;
   for(let att of attendees){
-    await User.findOne({ username: att.username })
+  await User.findOne({ username: att.username })
     .populate('meetings')
     .then((user) => {
-      if (user) {
+      if (!user) {
+        res.statusCode = 401;
+        res.end(`A user with username ${att.username} could not be found!`);
+      }
+      else {
         var flag = "notAvaliable";
         for(var i=0;i<user.workingHours.length;i++){
           hr = user.workingHours[i];
           if (hr.startTime <= startTime && hr.endTime >= endTime) {
             user.meetings.map((meet) => {
-              if (
-                (meet.startTime >= startTime && meet.startTime <= endTime) ||
-                (meet.endTime >= startTime && meet.endTime <= endTime)
-              ) {
-                
+              if ((meet.startTime >= startTime && meet.startTime <= endTime) || (meet.endTime >= startTime && meet.endTime <= endTime)) {
                 res.statusCode = 401;
                 res.end(`${user.name} is already scheduled somewhere`);
               }
@@ -51,9 +53,15 @@ exports.createMeeting = async (req, res, next) => {
     attendees.map((attendee) => {
       User.findOne({username:attendee.username})
       .then((user) => {
-        user.meetings.push(meet._id);
-        user.save();
-      })
+        if(!user){
+          res.statusCode = 401;
+          res.end(`A user with username ${attendee.username} could not be found!`);
+        }
+        else{
+          user.meetings.push(meet._id);
+          user.save();
+        }
+      }).catch(err => next(err));
     })
     res.statusCode = 200;
     res.setHeader('Content-Type', 'application/json');
@@ -64,14 +72,14 @@ exports.createMeeting = async (req, res, next) => {
 
 exports.deleteMeeting = (req, res, next) => {
   const meetingId = req.body.meetingId;
-  Meeting.findOne({ _id: meetingId })
+  Meeting.findOne({ "_id": ObjectId(meetingId) })
     .then((meeting) => {
       if (!meeting) {
         const error = new Error("Meeting not found!!");
         error.statusCode = 401;
         next(error);
       }
-      meeting.attendee.map((att) => {
+      meeting.attendees.map((att) => {
         User.findOne({ username: att.username }).then((user) => {
           if (user) {
             user.meetings = user.meetings.filter(
