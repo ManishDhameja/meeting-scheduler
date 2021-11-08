@@ -35,7 +35,6 @@ const InfoModal = ({ show, handleClose }) => {
                             </>
                         );
                     })}
-
                     </div>
                 </Modal.Body>
                 <Modal.Footer>
