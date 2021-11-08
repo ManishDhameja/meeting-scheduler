@@ -5,8 +5,11 @@ import { ImMenu } from 'react-icons/im';
 import { IconContext } from "react-icons";
 import { BiChevronLeft } from 'react-icons/bi';
 import { BiChevronRight } from 'react-icons/bi';
+import { Avatar } from '@mui/material';
 
 const Header = () => {
+    const name="Rolit";
+    const [isShown, setIsShown] = useState(false);
     return (
         <>
             <div className="HeaderContainer">
@@ -37,6 +40,9 @@ const Header = () => {
                             <option value="month">Month</option>
                         </select>
                     </div>
+                    <Avatar style={{backgroundColor:"rgb(50, 53, 58)"}}>
+                        {name.slice(0,1)}
+                    </Avatar>
                 </div>
             </div>
         </>
