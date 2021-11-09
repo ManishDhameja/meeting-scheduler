@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Modal, ModalBody } from "reactstrap";
+import { Modal, ModalBody, ModalHeader, ModalFooter } from "reactstrap";
 import Button from '@material-ui/core/Button';
 import ClearIcon from '@material-ui/icons/Clear';
 import IconButton from '@material-ui/core/IconButton';
@@ -7,8 +7,11 @@ import { TextField, Autocomplete } from "@mui/material";
 import AdapterDateFns from "@mui/lab/AdapterDateFns";
 import LocalizationProvider from "@mui/lab/LocalizationProvider";
 import DateTimePicker from "@mui/lab/DateTimePicker";
+import './AddEvent.css';
 
 const AddEvent = (props) => {
+  console.log(props);
+
   const friends = [
     { name: "Jatin Bajaj" },
     { name: "Rishab Goyal" },
@@ -38,17 +41,20 @@ const AddEvent = (props) => {
     };
   });
 
+  // return <h1>Hello</h1>
+
   return (
-    <Modal className="auth-inner"
+    <Modal className="auth-inner AddEventModal"
       isOpen={props.isModalOpen}
       toggle={props.toggleModal}>
-      <Modal.Header className="Modal-header">
-        <Modal.Title> Add Event</Modal.Title>
-        <IconButton onClick={props.toggleModal}>
+      <ModalHeader className="Modal-header">
+        {/* <ModalTitle> Add Event</ModalTitle> */}
+        {/* <IconButton onClick={props.toggleModal}>
           <ClearIcon />
-        </IconButton>
-      </Modal.Header>
-      <Modal.Body>
+        </IconButton> */}
+        Add Event
+      </ModalHeader>
+      <ModalBody>
         <div className="container mt-3">
           <div className="row py-2">
             <div className="col-3">
@@ -157,12 +163,12 @@ const AddEvent = (props) => {
             </div>
           </div>
         </div>
-      </Modal.Body>
-      <Modal.Footer>
+      </ModalBody>
+      <ModalFooter>
         <Button className="Modal-button">
           Add
         </Button>
-      </Modal.Footer>
+      </ModalFooter>
     </Modal>
   );
 };

@@ -73,9 +73,9 @@ function validateEmail(email) {
 }
 
 function validatePassword(password) {
-  const regex_pass =
-    /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!#%*?&]{8,20}$/;
-  return regex_pass.test(password);
+  const regex_pass = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!#%*?&]{8,20}$/;
+  // return regex_pass.test(password);
+  return true;
 }
 
 const LoginModal = (props) => {
@@ -161,6 +161,7 @@ const LoginModal = (props) => {
     if (flag) return;
 
     if (activeTab === "1") {
+      // console.log(values);
       dispatch(
         ASYNC_LOGIN({
           email: values.email,
@@ -216,26 +217,6 @@ const LoginModal = (props) => {
             <TabPane tabId="1">
               {/* SIGN IN */}
               <div className="row pb-5">
-                {/* <div className="col-lg-6 d-none d-lg-block px-md-5">
-                  <div className="row">
-                    <div className="col-12 d-flex justify-content-center align-items-center  ">
-                      <img src={SingUpImage} width="80%" />
-                    </div>
-                  </div>
-                  <div className="row">
-                    <div className="col-12 d-flex justify-content-center align-items-center  forgot-password text-center pt-4">
-                      Don't have an account{" "}
-                      <a
-                        className="or-signin pt-0 ps-1"
-                        style={{ color: "#167BFF !important" }}
-                        onClick={() => setActiveTab("2")}
-                      >
-                        {" "}
-                        sign up?
-                      </a>
-                    </div>
-                  </div>
-                </div> */}
                 <div className="col-12 px-md-5 mt-4">
                   <form className={classes.root}>
                     <FormControl
@@ -446,26 +427,6 @@ const LoginModal = (props) => {
                     </div>
                   </form>
                 </div>
-                {/* <div className="col-lg-6 d-none d-lg-block px-md-5">
-                  <div className="row">
-                    <div className="col-12 d-flex justify-content-center align-items-center pt-2">
-                      <img src={SingInImage} width="95%" />
-                    </div>
-                  </div>
-                  <div className="row">
-                    <div className="col-12 d-flex justify-content-center align-items-center  forgot-password text-center pt-4">
-                      Already registered{" "}
-                      <a
-                        className="or-signin pt-0 ps-1"
-                        style={{ color: "#167BFF !important" }}
-                        onClick={() => setActiveTab("1")}
-                      >
-                        {" "}
-                        sign in?
-                      </a>
-                    </div>
-                  </div>
-                </div> */}
               </div>
             </TabPane>
           </TabContent>

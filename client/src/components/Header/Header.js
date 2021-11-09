@@ -31,9 +31,10 @@ const Header = () => {
   const storeData = useSelector(selectUserData);
   const userName = storeData.userName;
   const token = storeData.token;
+  const [loginVar, setLoginVar] = useState(true);
   const userEmail = storeData.userEmail;
   const ConditionalBtn = () => {
-    if(token) {
+    if(loginVar) {
       return (
         <li className="nav-item text-start">
           <UncontrolledDropdown nav className="p-0">
@@ -50,7 +51,7 @@ const Header = () => {
                 <div className="py-1 comp-nav mx-1 text-secondary fw-500" style={{fontsize:"0.6rem !important"}} disabled>rishabgoyal@gmail.com</div>
               </DropdownItem>
               <DropdownItem className="my-0 ml-0 pl-3" divider />
-              <DropdownItem className="my-0 ml-0 pl-3" onClick={() => {dispatch(LOGOUT())}}>
+              <DropdownItem className="my-0 ml-0 pl-3" onClick={() => setLoginVar(false)}>
                 <Link to="/" className="py-1 mx-1 logout" style={{fontsize:"0.6rem !important"}}>Logout</Link>
               </DropdownItem>
             </DropdownMenu>

@@ -9,7 +9,6 @@ import { IconContext } from 'react-icons';
 import { useParams } from 'react-router-dom';
 import AddEvent from '../Modals/AddEvent/AddEvent';
 import InfoModal from '../Modals/InfoModal';
-
 const getWeekInfoList = (currYear, currMonth, currDate) => { 
     console.log(currYear, currMonth, currDate);
     let weekInfo = getFirstLastDayOfWeek(currYear, currMonth, currDate);
@@ -39,7 +38,7 @@ const getWeekInfoList = (currYear, currMonth, currDate) => {
     }
     return weekList;
 }
-
+ 
 const getTimings = () => {
     let timings = [];
     timings.push({
@@ -68,7 +67,7 @@ const getTimings = () => {
     }
     return timings;
 }
-
+ 
 const Calendar = () => {
     const [show, setShow] = useState(false);
     const toggle = () => setShow(prevState=>!prevState);
@@ -78,13 +77,13 @@ const Calendar = () => {
     const month = useParams().month;
     const date = useParams().date;
     console.log(useParams());
-
+ 
     const weekList = getWeekInfoList(parseInt(year), parseInt(month)-1, parseInt(date));
     console.log(weekList);
     const timings = getTimings();
     console.log("timings: ", timings);
     const [meetList, setMeetList] = useState([]);
-
+ 
     useEffect(() => {
         setMeetList([
             {
@@ -121,9 +120,17 @@ const Calendar = () => {
             }
         ])
     }, [])
-
+ 
     return (
         <>
+        {(!showInfo) ? <AddEvent 
+            isModalOpen={show} 
+            toggleModal={toggle} 
+        /> : ""}
+        <InfoModal
+            isModalOpen={showInfo} 
+            toggleModal={toggleInfo} 
+        />
         <div className="Calendar">
             <div className="Schedule">
                 <div className="Schedule_Timings ">
@@ -150,7 +157,7 @@ const Calendar = () => {
                                         {
                                             timings.map(time => {
                                                 let meetings = [];
-
+ 
                                                 meetList.forEach(meet => {
                                                     let startTime = new Date(meet.startTime);
                                                     if(startTime.getHours() === time.hours && 
@@ -160,9 +167,9 @@ const Calendar = () => {
                                                         meetings.push(meet); 
                                                     }
                                                 })
-
+ 
                                                 return <li
-                                                onClick={() => setShowInfo(true)}
+                                                onClick={() => setShow(true)}
                                                 className="Schedule_Cell_Week Light_BorderB Light_BorderR">
                                                     {
                                                         meetings.map(meet => {
@@ -171,11 +178,11 @@ const Calendar = () => {
                                                             
                                                             let endTime = new Date(meet.endTime);
                                                             let endT = getTimeAMPM(endTime.getHours(), endTime.getMinutes());
-
+ 
                                                             return <div className="Meet">
                                                                 <div className="Meet_Options">
                                                                     <IconContext.Provider value={{className: "Meet_Update"}}>
-                                                                        <BsInfoCircle onClick={(event) => {}}/>
+                                                                        <BsInfoCircle onClick={() => setShowInfo(true)}/>
                                                                     </IconContext.Provider>
                                                                     <IconContext.Provider value={{className: "Meet_Link"}}>
                                                                         <a href={meet.meetingLink} target="_blank">
@@ -209,16 +216,9 @@ const Calendar = () => {
                 </div>
             </div>
         </div>
-        <AddEvent 
-            isModalOpen={show} 
-            toggleModal={toggle} 
-        />
-        <InfoModal 
-            isModalOpen={showInfo} 
-            toggleModal={toggleInfo} 
-        />
+        
         </>
     )
 }
-
+ 
 export default Calendar;

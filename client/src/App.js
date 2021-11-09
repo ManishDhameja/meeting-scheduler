@@ -1,11 +1,16 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import { Route, useLocation, Redirect, BrowserRouter, Switch } from 'react-router-dom';
 import Dashboard from './components/Dashboard/Dashboard';
-import InfoModal from './components/Modals/InfoModal';
-
+import { useDispatch, useSelector } from 'react-redux';
+import { AUTOLOGIN, selectUserData } from './reduxSlices/authSlice';
 const App = () => {
   const pathname = useLocation().pathname;
+  const userData = useSelector(selectUserData);
 
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(AUTOLOGIN());
+  }, []);
   if(pathname === '/') {
     let date = new Date();
     let year = date.getFullYear();
@@ -18,7 +23,7 @@ const App = () => {
     <BrowserRouter>
       <Switch>
         <Route path = "/calendar/:year/:month/:date" exact component={Dashboard}/>
-        <Route path = "/infomodal" exact component={InfoModal}/>
+        {/* <Route path = "/infomodal" exact component={InfoModal}/> */}
       </Switch>
     </BrowserRouter>
   );
