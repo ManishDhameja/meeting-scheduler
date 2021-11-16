@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Modal, ModalBody, ModalHeader, ModalFooter } from "reactstrap";
 import Button from '@material-ui/core/Button';
 import ClearIcon from '@material-ui/icons/Clear';
@@ -8,33 +8,61 @@ import AdapterDateFns from "@mui/lab/AdapterDateFns";
 import LocalizationProvider from "@mui/lab/LocalizationProvider";
 import DateTimePicker from "@mui/lab/DateTimePicker";
 import './AddEvent.css';
+import axios from 'axios';
+import { useSelector } from "react-redux";
+import {selectUserData} from '../../../reduxSlices/authSlice'
 
-const AddEvent = (props) => {
-  console.log(props);
+const AddMeeting = (props) => {
+  const [selectedMembers, setSelectedMembers]= useState([]);
+  const userData = useSelector(selectUserData);
+  const [members, setMembers] = useState([]);
+  const [title, setTitle] = useState(null);
+  const [description, setDescription] = useState("");
+  const [meetingLink, setMeetingLink] = useState("");
+  const [startTime, setStartTime] = useState(new Date());
+  const [endTime, setEndTime] = useState(new Date());
 
-  const friends = [
-    { name: "Jatin Bajaj" },
-    { name: "Rishab Goyal" },
-    { name: "Manish Dhameja" },
-    { name: "Rolit Trivedi" },
-  ];
-  const friendList = [
-    { name: "Jatin Bajaj" },
-    { name: "Rishab Goyal" },
-    { name: "Manish Dhameja" },
-    { name: "Rolit Trivedi" },
-    { name: "Bajaj Honda" },
-    { name: "Goya" },
-    { name: "Tanish Malhotra" },
-    { name: "Jolit chaturvedi" },
-  ];
+  useEffect(() => {
+    axios.get('http://localhost:5000/users/')
+      .then((res)=>{
+        setMembers(res.data);
+      })
+      .catch(err =>{
+        console.log(err);
+      })
+  }, [setMembers])
 
-  const [selectedMember, setSelectedMember] = useState([]);
-  const [start, setStart] = useState(new Date());
-  const [end, setEnd] = useState(new Date());
+  const handleSubmit= (e)=>{
+    e.preventDefault();
+    const userArray = selectedMembers.map((item)=>{
+      return{
+        username : item.username,
+        status : 'Pending'
+      } 
+    })
+    userArray.push({
+      username : userData.userName,
+      status : 'Accepted'
+    })
+    axios.post('http://localhost:5000/meetings/createMeeting' , {
+      startTime : startTime,
+      endTime : endTime,
+      title : title,
+      description : description,
+      meetingLink : meetingLink, 
+      attendees : userArray,
+      host : userData.userName
+    })
+    .then(res=>{
+      console.log(res);
+    })
+    .catch(err=>{
+      console.log(err);
+    })
+  }
 
-  const options = friendList.map((option) => {
-    const firstLetter = option.name[0].toUpperCase();
+  const options = members.map((option) => {
+    const firstLetter = option.username[0].toUpperCase();
     return {
       firstLetter: /[0-9]/.test(firstLetter) ? "0-9" : firstLetter,
       ...option,
@@ -44,14 +72,11 @@ const AddEvent = (props) => {
   // return <h1>Hello</h1>
 
   return (
+    
     <Modal className="auth-inner AddEventModal"
       isOpen={props.isModalOpen}
       toggle={props.toggleModal}>
       <ModalHeader className="Modal-header">
-        {/* <ModalTitle> Add Event</ModalTitle> */}
-        {/* <IconButton onClick={props.toggleModal}>
-          <ClearIcon />
-        </IconButton> */}
         Add Event
       </ModalHeader>
       <ModalBody>
@@ -67,6 +92,10 @@ const AddEvent = (props) => {
                 required
                 multiline
                 variant="standard"
+                value={title}
+                onChange={(e) => {
+                  setTitle(e.target.value);
+                }}
               />
             </div>
           </div>
@@ -81,6 +110,10 @@ const AddEvent = (props) => {
                 required
                 multiline
                 variant="standard"
+                value={description}
+                onChange={(e) => {
+                  setDescription(e.target.value);
+                }}
               />
             </div>
           </div>
@@ -93,9 +126,9 @@ const AddEvent = (props) => {
                 <DateTimePicker
                   renderInput={(params) => <TextField {...params} />}
                   label=""
-                  value={start}
+                  value={startTime}
                   onChange={(newValue) => {
-                    setStart(newValue);
+                    setStartTime(newValue);
                   }}
                   minDateTime={new Date()}
                 />
@@ -111,9 +144,9 @@ const AddEvent = (props) => {
                 <DateTimePicker
                   renderInput={(params) => <TextField {...params} />}
                   label=""
-                  value={end}
+                  value={endTime}
                   onChange={(newValue) => {
-                    setEnd(newValue);
+                    setEndTime(newValue);
                   }}
                   minDateTime={new Date()}
                 />
@@ -134,7 +167,7 @@ const AddEvent = (props) => {
                   (a, b) => -b.firstLetter.localeCompare(a.firstLetter)
                 )}
                 groupBy={(option) => option.firstLetter}
-                getOptionLabel={(option) => option.name}
+                getOptionLabel={(option) => option.username}
                 renderInput={(params) => (
                   <TextField
                     {...params}
@@ -142,9 +175,9 @@ const AddEvent = (props) => {
                     placeholder="Add Member"
                   />
                 )}
-                value={selectedMember}
-                onChange={(_event, selectedMember) => {
-                  setSelectedMember(selectedMember);
+                value={selectedMembers}
+                onChange={(_event, selectedMembers) => {
+                  setSelectedMembers(selectedMembers)
                 }}
               />
             </div>
@@ -159,18 +192,22 @@ const AddEvent = (props) => {
                 label="Meeting Link or Location"
                 multiline
                 variant="standard"
+                value={meetingLink}
+                onChange={(e) => {
+                  setMeetingLink(e.target.value);
+                }}
               />
             </div>
           </div>
         </div>
       </ModalBody>
       <ModalFooter>
-        <Button className="Modal-button">
+        <button className="form-btn" onClick={handleSubmit}>
           Add
-        </Button>
+        </button>
       </ModalFooter>
     </Modal>
   );
 };
 
-export default AddEvent;
+export default AddMeeting;

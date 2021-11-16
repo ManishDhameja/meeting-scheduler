@@ -3,6 +3,7 @@ const jwt = require('jsonwebtoken');
 const User = require('../models/user');
 
 exports.signup = (req, res, next) => {
+    console.log(req.body);
     const email = req.body.email;
     const password = req.body.password;
     const username = req.body.username;
@@ -44,11 +45,13 @@ exports.signup = (req, res, next) => {
                                         'secretKey',
                                         { expiresIn: '100h' }
                                     );
+                                    console.log(result);
                                     res.status(201).json({
                                         message: "User Created", 
                                         userId: result._id, 
                                         token: token, 
-                                        userEmail: email
+                                        userEmail: email,
+                                        username: username
                                     });
                                 })
                         }
@@ -95,7 +98,7 @@ exports.signin = (req, res, next) => {
                 token: token, 
                 userId: loadedUser._id.toString(),
                 userEmail: loadedUser.email,
-                userName: loadedUser.username
+                username: loadedUser.username
             });
         })
         .catch(err => {

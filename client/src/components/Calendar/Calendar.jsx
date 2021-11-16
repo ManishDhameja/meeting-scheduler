@@ -7,7 +7,7 @@ import { FiEdit } from 'react-icons/fi';
 import { FiExternalLink } from 'react-icons/fi';
 import { IconContext } from 'react-icons';
 import { useParams } from 'react-router-dom';
-import AddEvent from '../Modals/AddEvent/AddEvent';
+import AddMeeting from '../Modals/AddEvent/AddMetting';
 import InfoModal from '../Modals/InfoModal';
 const getWeekInfoList = (currYear, currMonth, currDate) => { 
     console.log(currYear, currMonth, currDate);
@@ -123,7 +123,7 @@ const Calendar = () => {
  
     return (
         <>
-        {(!showInfo) ? <AddEvent 
+        {(!showInfo) ? <AddMeeting 
             isModalOpen={show} 
             toggleModal={toggle} 
         /> : ""}

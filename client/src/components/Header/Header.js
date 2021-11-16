@@ -31,27 +31,26 @@ const Header = () => {
   const storeData = useSelector(selectUserData);
   const userName = storeData.userName;
   const token = storeData.token;
-  const [loginVar, setLoginVar] = useState(true);
   const userEmail = storeData.userEmail;
   const ConditionalBtn = () => {
-    if(loginVar) {
+    if(token) {
       return (
         <li className="nav-item text-start">
           <UncontrolledDropdown nav className="p-0">
             <DropdownToggle nav className="py-0">
               <div className="class-avatar pe-2">
-                <Avatar style={{height:"35px",width:"35px"}}>{userName?.slice(0,1).toUpperCase()}</Avatar>
+                <Avatar style={{height:"35px",width:"35px", color:"f8f9fa", background:"ca635c"}}>{userName?.slice(0,1).toUpperCase()}</Avatar>
               </div>
             </DropdownToggle>
             <DropdownMenu className="my-0 py-0" right>
               <DropdownItem className="my-0 ml-0 pl-3">
-                <div className="py-1 comp-nav mx-1 text-secondary fw-500" style={{fontsize:"0.6rem !important"}} disabled>rishab432</div>
+                <div className="py-1 comp-nav mx-1 text-secondary fw-500" style={{fontsize:"0.6rem !important"}} disabled>{userName}</div>
               </DropdownItem>
               <DropdownItem className="my-0 ml-0 pl-3">
-                <div className="py-1 comp-nav mx-1 text-secondary fw-500" style={{fontsize:"0.6rem !important"}} disabled>rishabgoyal@gmail.com</div>
+                <div className="py-1 comp-nav mx-1 text-secondary fw-500" style={{fontsize:"0.6rem !important"}} disabled>{userEmail}</div>
               </DropdownItem>
               <DropdownItem className="my-0 ml-0 pl-3" divider />
-              <DropdownItem className="my-0 ml-0 pl-3" onClick={() => setLoginVar(false)}>
+              <DropdownItem className="my-0 ml-0 pl-3" onClick={() => dispatch(LOGOUT())}>
                 <Link to="/" className="py-1 mx-1 logout" style={{fontsize:"0.6rem !important"}}>Logout</Link>
               </DropdownItem>
             </DropdownMenu>

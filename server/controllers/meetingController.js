@@ -4,6 +4,7 @@ const ObjectId = require('mongoose').Types.ObjectId;
 
 
 exports.createMeeting = async (req, res, next) => {
+  console.log(req.body)
   const startTime = req.body.startTime;
   const endTime = req.body.endTime;
   const title = req.body.title;
@@ -12,45 +13,45 @@ exports.createMeeting = async (req, res, next) => {
   const attendees = req.body.attendees;
   const host = req.body.host;
 
-  try {
-    for(const att of attendees) {
-      await User.findOne({ username: att.username })
-        .then((user) => {
-          if (!user) {
-            const err = new Error(`A user with username ${att.username} could not be found!`);
-            err.statusCode = 401;
-            throw err;
-          }
-          else {
-            var flag = "notAvaliable";
-            for(var i=0;i<user.workingHours.length;i++){
-              hr = user.workingHours[i];
-              if (hr.startTime <= startTime && hr.endTime >= endTime) {
-                user.meetings.map((meet) => {
-                  if ((meet.startTime >= startTime && meet.startTime <= endTime) || (meet.endTime >= startTime && meet.endTime <= endTime)) {
-                    const err = new Error(`A user with username ${att.username} could not be found!`);
-                    err.statusCode = 401;
-                    throw err;
-                  }
-                });
-                flag = "scheduled";
-                // break;
-              }
-            }
-            if (flag === "notAvaliable") {
-              const err = new Error(`A user with username ${att.username} could not be found!`);
-              err.statusCode = 401;
-              return next(err);
-            }
-          }
-        })
-        .catch(err => {
-          throw err;
-        });
-    }
-  } catch(err) {
-    return next(err);
-  }
+  // try {
+  //   for(const att of attendees) { 
+  //     await User.findOne({ username: att.username })
+  //       .then((user) => {
+  //         if (!user) {
+  //           const err = new Error(`A user with username ${att.username} cannot be found!`);
+  //           err.statusCode = 401;
+  //           throw err;
+  //         }
+  //         else {
+  //           var flag = "notAvaliable";
+  //           for(var i=0;i<user.workingHours.length;i++){
+  //             hr = user.workingHours[i];
+  //             if (hr.startTime <= startTime && hr.endTime >= endTime) {
+  //               user.meetings.map((meet) => {
+  //                 if ((meet.startTime >= startTime && meet.startTime <= endTime) || (meet.endTime >= startTime && meet.endTime <= endTime)) {
+  //                   const err = new Error(`A user with username ${att.username} could not be found!`);
+  //                   err.statusCode = 401;
+  //                   throw err;
+  //                 }
+  //               });
+  //               flag = "scheduled";
+  //               // break;
+  //             }
+  //           }
+  //           if (flag === "notAvaliable") {
+  //             const err = new Error(`${att.username} is not avaliable at this time`);
+  //             err.statusCode = 401;
+  //             return next(err);
+  //           }
+  //         }
+  //       })
+  //       .catch(err => {
+  //         throw err;
+  //       });
+  //   } 
+  // } catch(err) {
+  //   return next(err);
+  // }
 
   Meeting.create({
     startTime: startTime,
@@ -61,9 +62,9 @@ exports.createMeeting = async (req, res, next) => {
     attendees: attendees,
     host: host
   })
-  .then((meet) => {
-    attendees.map((attendee) => {
-      User.findOne({username:attendee.username})
+  .then(async(meet) => {
+    for(const attendee of attendees){
+      await User.findOne({username:attendee.username})
       .then((user) => {
         if(!user){
           res.statusCode = 401;
@@ -74,7 +75,7 @@ exports.createMeeting = async (req, res, next) => {
           user.save();
         }
       }).catch(err => next(err));
-    })
+    }
     res.statusCode = 200;
     res.setHeader('Content-Type', 'application/json');
     res.json(meet);
@@ -108,7 +109,7 @@ exports.deleteMeeting = (req, res, next) => {
     .catch((err) => next(err));
 };
 
-exports.acceptMeeting = (req, res, next) => {
+exports.acceptMeeting = (req, res, next) => { 
   const username = req.body.username;
   const meetingId = req.body.meetingId;
   Meeting.findById(meetingId)
@@ -168,6 +169,7 @@ exports.declineMeeting = (req, res, next) => {
 }
 
 exports.upcomingMeetings = (req,res,next) =>{
+  console.log(req.query)
   const username = req.query.username;
   User.findOne({username : username}).populate("meetings")
   .then((user)=>{
@@ -179,4 +181,20 @@ exports.upcomingMeetings = (req,res,next) =>{
   .catch(err=>{
     next(err);
   })
+}
+
+exports.meetingDetails = (req,res,next) =>{
+  const meetingId = req.query.meetingId;
+  Meeting.findById(meetingId)
+    .then((meeting) => {
+      if (!meeting) {
+        const error = new Error("Meeting not found!!");
+        error.statusCode = 401;
+        next(error);
+      }
+      res.status(200).json(meeting);
+    })
+    .catch(err=>{
+      console.log(err);
+    })
 }

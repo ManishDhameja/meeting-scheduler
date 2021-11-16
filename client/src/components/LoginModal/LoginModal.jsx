@@ -14,6 +14,8 @@ import Visibility from "@material-ui/icons/Visibility";
 import VisibilityOff from "@material-ui/icons/VisibilityOff";
 import PermIdentityIcon from "@material-ui/icons/PermIdentity";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
+import GroupIcon from '@material-ui/icons/Group';
+import LocationCityIcon from '@material-ui/icons/LocationCity';
 import Input from "@material-ui/core/Input";
 import InputLabel from "@material-ui/core/InputLabel";
 import FormControl from "@material-ui/core/FormControl";
@@ -90,6 +92,8 @@ const LoginModal = (props) => {
   const [activeTab, setActiveTab] = useState("1");
   const [values, setValues] = useState({
     name: "",
+    username: "",
+    city:"",
     email: "",
     password: "",
     contact: "",
@@ -103,6 +107,8 @@ const LoginModal = (props) => {
     setEmailError(false);
     setValues({
       name: "",
+      username: "",
+      city:"",
       email: "",
       password: "",
       contact: "",
@@ -171,6 +177,8 @@ const LoginModal = (props) => {
     } else {
       dispatch(
         ASYNC_SIGNUP({
+          username: values.username,
+          city: values.city,
           email: values.email,
           password: values.password,
           name: values.name,
@@ -225,7 +233,7 @@ const LoginModal = (props) => {
                     >
                       <InputLabel htmlFor="email">Email</InputLabel>
                       <Input
-                        placeholder="Type your email"
+                        placeholder="Type your email/username"
                         fullWidth
                         id="email"
                         type="email"
@@ -320,6 +328,46 @@ const LoginModal = (props) => {
                         startAdornment={
                           <InputAdornment position="start">
                             <PermIdentityIcon />
+                          </InputAdornment>
+                        }
+                      />
+                    </FormControl>
+                    <FormControl
+                      error={emailError}
+                      className={clsx(classes.margin, classes.textField)}
+                    >
+                      <InputLabel htmlFor="email">Username</InputLabel>
+                      <Input
+                        placeholder="Type your username"
+                        fullWidth
+                        id="username"
+                        type="text"
+                        margin="normal"
+                        value={values.username}
+                        onChange={handleChange("username")}
+                        startAdornment={
+                          <InputAdornment position="start">
+                            <GroupIcon />
+                          </InputAdornment>
+                        }
+                      />
+                      </FormControl>
+                    <FormControl
+                      error={emailError}
+                      className={clsx(classes.margin, classes.textField)}
+                    >
+                      <InputLabel htmlFor="email">City</InputLabel>
+                      <Input
+                        placeholder="Type your city"
+                        fullWidth
+                        id="city"
+                        type="text"
+                        margin="normal"
+                        value={values.city}
+                        onChange={handleChange("city")}
+                        startAdornment={
+                          <InputAdornment position="start">
+                            <LocationCityIcon />
                           </InputAdornment>
                         }
                       />

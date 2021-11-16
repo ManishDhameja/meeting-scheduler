@@ -3,3 +3,18 @@
     max-width: 800px !important;
 }
 
+.form-btn {
+    margin-top: 20px;
+    padding: 10px 25px;
+    background: #1B559C;
+    border-radius: 4px;
+    outline: none;
+    border: none;
+    color: white;
+    font-weight: 400;
+    font-size: 15px;
+}
+
+.form-btn:hover{
+    background: #000;;
+}

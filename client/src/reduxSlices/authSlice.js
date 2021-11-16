@@ -4,7 +4,7 @@ import axios from 'axios';
 const authSlice = createSlice({
     name: 'auth',
     initialState: {
-        token: null,
+        token: null, 
         userId: null,
         userName:null,
         userEmail:null,
@@ -93,48 +93,52 @@ export const ASYNC_LOGIN = userData => dispatch => {
   console.log(authData);
   axios.post(URL, authData)
   .then(response => {
+    console.log(response.data) 
     const token = response.data.token;
     const userId = response.data.userId;
     localStorage.setItem('Scheduler__token', token);
     localStorage.setItem('Scheduler__userId', userId);
     localStorage.setItem('Scheduler__userEmail', response.data.userEmail);
-    localStorage.setItem('Scheduler__userName', response.data.userName);
+    localStorage.setItem('Scheduler__userName', response.data.username);
     dispatch(AUTOLOGIN());
     dispatch(SET_LOADING(false));
     dispatch(SET_LOGGING(false));
   })
   .catch(err => {
-    console.log(err);
-    // console.log(err.response.data.message);
-    // dispatch(SET_ERROR(err.response.data.message));
+    if (err.response && err.response.data) {
+      console.log(err.response.data.message);
+      dispatch(SET_ERROR(err.response.data.message));
+    }
     dispatch(SET_LOADING(false));
     dispatch(SET_LOGGING(false));
   })
 }
 export const ASYNC_SIGNUP = authData => dispatch => {
-    
+  console.log(authData);
   if(authData.logging)
-      dispatch(SET_LOGGING(true));
-      
+  dispatch(SET_LOGGING(true));
+  
   dispatch(SET_LOADING(true));
-
+  
   let URL = "http://localhost:5000/auth/signup";
   axios.post(URL, authData)
   .then(response => {
+    console.log(response.data)
     const token = response.data.token;
     const userId = response.data.userId;
     localStorage.setItem('Scheduler__token', token);
     localStorage.setItem('Scheduler__userId', userId);
     localStorage.setItem('Scheduler__userEmail', response.data.userEmail);
-    localStorage.setItem('Scheduler__userName', response.data.userName);
+    localStorage.setItem('Scheduler__userName', response.data.username);
     dispatch(AUTOLOGIN());
     dispatch(SET_LOADING(false));
     dispatch(SET_LOGGING(false));
   })
   .catch(err => {
-    console.log(err);
-    console.log(err.response.data.message);
-    dispatch(SET_ERROR(err.response.data.message));
+    if (err.response && err.response.data) {
+      console.log(err.response.data.message);
+      dispatch(SET_ERROR(err.response.data.message));
+    }
     dispatch(SET_LOADING(false));
     dispatch(SET_LOGGING(false));
   })
